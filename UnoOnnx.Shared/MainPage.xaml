@@ -1,0 +1,118 @@
+<Page
+    x:Class="UnoOnnx.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UnoOnnx"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="PersonDataTemplate" x:DataType="local:EntityModel">
+            <Border CornerRadius="4" Margin="4,0" BorderBrush="#3a1772" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#3a1772"/>
+                    <TextBlock Grid.Row="0" Text="PERSON" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="{x:Bind Path=Word}" Margin="4" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Background="#3a1772"/>
+                    <TextBlock Grid.Row="2" Text="{x:Bind Path=Score}" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OrganisationDataTemplate" x:DataType="local:EntityModel">
+            <Border CornerRadius="4" Margin="4,0" BorderBrush="#5398BE" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#5398BE"/>
+                    <TextBlock Grid.Row="0" Text="ORGANISATION" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="{x:Bind Path=Word}" Margin="4" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Background="#5398BE"/>
+                    <TextBlock Grid.Row="2" Text="{x:Bind Path=Score}" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="LocationDataTemplate" x:DataType="local:EntityModel">
+            <Border CornerRadius="4" Margin="4,0" BorderBrush="#F2CD5D" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#F2CD5D"/>
+                    <TextBlock Grid.Row="0" Text="LOCATION" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="{x:Bind Path=Word}" Margin="4" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Background="#F2CD5D"/>
+                    <TextBlock Grid.Row="2" Text="{x:Bind Path=Score}" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MiscDataTemplate" x:DataType="local:EntityModel">
+            <Border CornerRadius="4" Margin="4,0" BorderBrush="#DEA54B" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#DEA54B"/>
+                    <TextBlock Grid.Row="0" Text="MISC" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="{x:Bind Path=Word}" Margin="4" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Background="#DEA54B"/>
+                    <TextBlock Grid.Row="2" Text="{x:Bind Path=Score}" Foreground="White" Style="{StaticResource CaptionTextBlockStyle}" Margin="4"  HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NoneDataTemplate" x:DataType="local:EntityModel">
+            <Border CornerRadius="4" Margin="4,0">
+                <TextBlock Grid.Row="1" Text="{x:Bind Path=Word}" Margin="0,4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </DataTemplate>
+        
+        <local:EntityModelTemplateSelector 
+            x:Key="EntityModelTemplateSelector"
+            Person="{StaticResource PersonDataTemplate}"
+            Organisation="{StaticResource OrganisationDataTemplate}"
+            Location="{StaticResource LocationDataTemplate}"
+            Misc="{StaticResource MiscDataTemplate}"
+            None="{StaticResource NoneDataTemplate}" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Input:" Margin="4,4,0,0" />
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="4" />
+        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Stretch" Margin="4" Content="GO!" Padding="12,4" Command="{Binding Path=ChangeCommand}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Results:" Margin="4,12,4,4" />
+        <ItemsControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Entities, Mode=OneWay}" ItemTemplateSelector="{StaticResource EntityModelTemplateSelector}" Margin="4">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Page>

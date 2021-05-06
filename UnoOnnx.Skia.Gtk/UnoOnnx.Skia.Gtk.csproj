@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup Condition="exists('..\UnoOnnx.UWP')">
+    <EmbeddedResource Include="..\UnoOnnx.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
+    <Content Include="..\UnoOnnx.UWP\Assets\StoreLogo.png" Link="Assets\StoreLogo.png" />
+    <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="..\UnoOnnx.Shared\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="model-optimized-quantized.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Models\Onnx\config.json" Link="Assets\config.json" />
+    <Content Include="..\Models\Onnx\vocab.txt" Link="Assets\vocab.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Models\Onnx\model-optimized-quantized.onnx" Link="Assets\model-optimized-quantized.onnx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.7.0" />
+    <PackageReference Include="Uno.WinUI.Skia.Gtk" Version="3.7.3" />
+    <PackageReference Include="Uno.WinUI.RemoteControl" Version="3.7.3" Condition="'$(Configuration)'=='Debug'" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnoOnnx.Prediction.Onnx\UnoOnnx.Prediction.Onnx.csproj" />
+    <ProjectReference Include="..\UnoOnnx.Prediction\UnoOnnx.Prediction.csproj" />
+  </ItemGroup>
+  <Import Project="..\UnoOnnx.Shared\UnoOnnx.Shared.projitems" Label="Shared" />
+</Project>
